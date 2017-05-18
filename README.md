@@ -1,2 +1,2 @@
 # react-native-app-template
-react native app template using redux and saga
+React native application template using redux and saga with react-router-native and react-router-redux configuration
