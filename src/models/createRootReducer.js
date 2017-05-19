@@ -1,5 +1,6 @@
 import { combineReducers, compose } from 'redux'
 import { routerReducer as router } from 'react-router-redux'
+import { reducer as formReducer } from 'redux-form';
 
 import * as reducers from './_reducers.register'
 
@@ -13,6 +14,7 @@ const composeEnhancers =
 /* eslint-disable no-underscore-dangle */
 export const createRootReducer = (asyncReducers) => combineReducers({
   router,
+  form: formReducer,
   ...reducers,
   ...asyncReducers,
   composeEnhancers
