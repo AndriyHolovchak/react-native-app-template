@@ -7,11 +7,11 @@ const routes = [
   {
     path: '/',
     exact: true,
-    main: () => <Home />
+    main: () => <Login />
   },
   {
-    path: '/login',
-    main: () => <Login />
+    path: '/home',
+    main: () => <Home />
   }
 ]
 

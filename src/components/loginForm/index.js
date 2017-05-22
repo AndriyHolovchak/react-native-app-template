@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react'
-import { View } from 'react-native'
+import { View, Image } from 'react-native'
 import { Item, Input, Content, Button, Text, Label } from 'native-base'
 import { Field,reduxForm } from 'redux-form'
 import styles from './styles'
+import { image } from '../../assets/images.register';
 
 const validate = values => {
   const errors = {};
@@ -23,7 +24,7 @@ const validate = values => {
 
 class LoginForm extends Component {
 
-  renderInput({ input, label, type, meta: { touched, error } }) {
+  renderInput({ input, label, type, secureTextEntry, meta: { touched, error } }) {
     var hasError = false;
     if(touched && error) {
       hasError= true;
@@ -31,8 +32,8 @@ class LoginForm extends Component {
     return(
       <View>
         <Item error={hasError} floatingLabel>
-          <Label>{label}</Label>
-          <Input type={type} {...input}/>
+          <Label style={styles.inputText}>{label}</Label>
+          <Input type={type} {...input} secureTextEntry={secureTextEntry} style={styles.inputText}/>
         </Item>
         {hasError ? <Text style={styles.error}>{error}</Text> : <Text />}
       </View>)
@@ -43,13 +44,14 @@ class LoginForm extends Component {
      //const loginEx = (values) => console.log(values)
 
      return (
-        <Content padder>
+        <View style={styles.loginContainer}>
             <Field name="email" type="email" label="Email" component={this.renderInput} />
-            <Field name="password" type="password" label="Password" component={this.renderInput} />
-            <Button block light onPress={reset} style={{marginVertical: 20}}>
-              <Text>Submit</Text>
+            <Field name="password" type="password" secureTextEntry label="Password" component={this.renderInput} />
+            <Button block bordered info onPress={reset}
+              style={styles.loginBtn}>
+              <Text style={styles.loginBtnText}>Submit</Text>
             </Button>
-        </Content>
+        </View>
       )
     }
 }

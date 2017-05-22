@@ -1,17 +1,21 @@
 import React, { Component, PropTypes } from 'react'
-import { View, Text } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import { Link } from 'react-router-native'
 import { Content } from 'native-base';
 
 import LoginForm from '../../components/loginForm'
+import styles from './styles'
+import { image } from '../../assets/images.register';
 
 export default class Login extends Component {
 
   render() {
     return (
-      <Content>
-        <LoginForm/>
-      </Content>
+      <Image source={image.login_background} style={styles.background}>
+        <Content style={styles.backgroundShadow} extraScrollHeight={50}>
+          <LoginForm/>
+        </Content>
+      </Image>
     )
   }
 }

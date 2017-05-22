@@ -11,13 +11,13 @@ export default class AppFooter extends Component {
       <Footer>
         <FooterTab>
             <Button
-              active={this.props.location == '/login'}
-              onPress={() => this.props.push('/login')}>
+              active={this.props.location == '/'}
+              onPress={() => this.props.push('/')}>
                 <Text>Login</Text>
             </Button>
             <Button
-              active={this.props.location == '/'}
-              onPress={() => this.props.push('/')}>
+              active={this.props.location == '/home'}
+              onPress={() => this.props.push('/home')}>
                 <Text>Home</Text>
             </Button>
         </FooterTab>
