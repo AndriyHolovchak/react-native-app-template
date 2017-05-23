@@ -1,12 +1,23 @@
-export const UPDATE_USER_NAME = 'VEEP/UPDATE_USER_NAME'
-export const UPDATE_USER_ID = 'VEEP/UPDATE_USER_ID'
+export const LOGIN_REQUEST = 'VEEP/LOGIN_REQUEST'
+export const LOGIN_FULFILLED = 'VEEP/LOGIN_FULFILLED'
+export const LOGIN_REJECTED = 'VEEP/LOGIN_REJECTED'
+export const LOGOUT = 'VEEP/LOGOUT'
 
-export const updateUserId = (id) => ({
-  type: UPDATE_USER_ID,
-  data: { id }
+export const loginFulfiled = (data) => ({
+    type: LOGIN_FULFILLED,
+    payload: data
 })
 
-export const updateUserName = (name) => ({
-  type: UPDATE_USER_NAME,
-  data: { name }
+export const loginRejected = (error) => ({
+    type: LOGIN_REJECTED,
+    payload: { error }
+})
+
+export const loginRequest = (user) => ({
+  type: LOGIN_REQUEST,
+  payload: { user }
+})
+
+export const logout = () => ({
+  type: LOGOUT
 })

@@ -1,4 +1,4 @@
-import get from 'lodash/get'
+import get from 'lodash/get';
 
 /**
  * Selectors are useful to compute derived data from the Redux store.
@@ -12,5 +12,6 @@ import get from 'lodash/get'
  * @param  {Object} state The Redux store of the application
  * @return {Any}          Profile information
  */
-export const id = (state) => get(state, ['login', 'id'])
-export const name = (state) => get(state, ['login', 'name'])
+export const email = (state) => get(state, ['login', 'user', 'email'])
+export const password = (state) => get(state, ['login', 'user', 'password'])
+export const isLogged = (state) => get(state, ['login', 'isLogged'])

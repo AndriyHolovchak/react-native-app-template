@@ -12,8 +12,8 @@ export default class Login extends Component {
   render() {
     return (
       <Image source={image.login_background} style={styles.background}>
-        <Content style={styles.backgroundShadow} extraScrollHeight={50}>
-          <LoginForm/>
+        <Content style={styles.backgroundShadow} keyboardShouldPersistTaps="always" extraScrollHeight={50}>
+          <LoginForm {...this.props}/>
         </Content>
       </Image>
     )

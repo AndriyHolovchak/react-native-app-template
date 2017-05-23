@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react'
-import { View, Image } from 'react-native'
+import { View, Image, TouchableWithoutFeedback, Keyboard } from 'react-native'
 import { Item, Input, Content, Button, Text, Label } from 'native-base'
 import { Field,reduxForm } from 'redux-form'
 import styles from './styles'
 import { image } from '../../assets/images.register';
+import Spinner from '../spinner'
 
 const validate = values => {
   const errors = {};
@@ -33,28 +34,49 @@ class LoginForm extends Component {
       <View>
         <Item error={hasError} floatingLabel>
           <Label style={styles.inputText}>{label}</Label>
-          <Input type={type} {...input} secureTextEntry={secureTextEntry} style={styles.inputText}/>
+          <Input
+            autoCapitalize={'none'}
+            autoCorrect={false}
+            type={type}
+            secureTextEntry={secureTextEntry}
+            style={styles.inputText}
+            {...input}/>
         </Item>
         {hasError ? <Text style={styles.error}>{error}</Text> : <Text />}
       </View>)
   }
-  render(){
-     const { handleSubmit, reset } = this.props;
 
-     //const loginEx = (values) => console.log(values)
+  signIn() {
+    Keyboard.dismiss();
+    const { handleSubmit, loginRequest } = this.props;
+    const loginEx = (values) => loginRequest(values);
+    handleSubmit(loginEx)();
+  }
+
+  render() {
+     const { showSpinner } = this.props;
 
      return (
-        <View style={styles.loginContainer}>
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+          <View style={styles.loginContainer}>
+            <Spinner visible={showSpinner}/>
             <Field name="email" type="email" label="Email" component={this.renderInput} />
             <Field name="password" type="password" secureTextEntry label="Password" component={this.renderInput} />
-            <Button block bordered info onPress={reset}
+            <Button block bordered info onPress={this.signIn.bind(this)}
               style={styles.loginBtn}>
               <Text style={styles.loginBtnText}>Submit</Text>
             </Button>
-        </View>
+          </View>
+        </TouchableWithoutFeedback>
       )
     }
 }
+
+LoginForm.propTypes = {
+    loginRequest: PropTypes.func.isRequired,
+    showSpinner: PropTypes.bool.isRequired,
+};
+
 export default reduxForm({
   form: 'test',
   validate
