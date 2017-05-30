@@ -9,7 +9,7 @@ const styles = {
       flex: 1
   },
   backgroundShadow: {
-      backgroundColor: 'rgba(0, 0, 0, 0.5)'
+      backgroundColor: 'rgba(0, 0, 0, 0.65)'
   },
 };
 

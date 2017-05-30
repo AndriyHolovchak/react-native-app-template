@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { View, Image, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import { View, Image, TouchableWithoutFeedback, Keyboard, TextInput } from 'react-native'
 import { Item, Input, Content, Button, Text, Label } from 'native-base'
 import { Field,reduxForm } from 'redux-form'
 import styles from './styles'
@@ -22,29 +22,37 @@ const validate = values => {
   return errors;
 };
 
-
-class LoginForm extends Component {
-
-  renderInput({ input, label, type, secureTextEntry, meta: { touched, error } }) {
+class RenderInput extends Component {
+  render() {
+    const { input, name, label, type, secureTextEntry, onEnter, meta: { touched, error } } = this.props;
     var hasError = false;
     if(touched && error) {
       hasError= true;
     }
-    return(
+
+    return (
       <View>
-        <Item error={hasError} floatingLabel>
-          <Label style={styles.inputText}>{label}</Label>
-          <Input
+        <Item error={hasError} placeholderLabel>
+           <Input
+            ref={type}
             autoCapitalize={'none'}
             autoCorrect={false}
             type={type}
             secureTextEntry={secureTextEntry}
             style={styles.inputText}
+            onSubmitEditing={() => {onEnter()}}
+            placeholder={label}
+            placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
             {...input}/>
-        </Item>
-        {hasError ? <Text style={styles.error}>{error}</Text> : <Text />}
-      </View>)
+          </Item>
+          {hasError ? <Text style={styles.error}>{error}</Text> : <Text />}
+       </View>
+      )
   }
+}
+
+
+class LoginForm extends Component {
 
   signIn() {
     Keyboard.dismiss();
@@ -54,15 +62,30 @@ class LoginForm extends Component {
   }
 
   render() {
-     const { showSpinner } = this.props;
+     const { showSpinner, handleSubmit } = this.props;
 
      return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
           <View style={styles.loginContainer}>
             <Spinner visible={showSpinner}/>
-            <Field name="email" type="email" label="Email" component={this.renderInput} />
-            <Field name="password" type="password" secureTextEntry label="Password" component={this.renderInput} />
-            <Button block bordered info onPress={this.signIn.bind(this)}
+            <Field
+              withRef
+              name="email"
+              type="email"
+              label="Email"
+              component={RenderInput}
+              onEnter={() => {this.password.getRenderedComponent().refs.password._root.focus()}}
+            />
+            <Field
+              withRef
+              ref={(value) => this.password = value}
+              name="password" type="password"
+              secureTextEntry
+              label="Password"
+              component={RenderInput}
+              onEnter={() => {this.signIn()}}
+            />
+            <Button block bordered info onPress={() => this.signIn()}
               style={styles.loginBtn}>
               <Text style={styles.loginBtnText}>Submit</Text>
             </Button>
