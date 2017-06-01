@@ -5,6 +5,7 @@ import { Field,reduxForm } from 'redux-form'
 import styles from './styles'
 import { image } from '../../assets/images.register';
 import Spinner from '../spinner'
+import { LoginButton, AccessToken } from 'react-native-fbsdk'
 
 const validate = values => {
   const errors = {};
@@ -89,6 +90,24 @@ class LoginForm extends Component {
               style={styles.loginBtn}>
               <Text style={styles.loginBtnText}>Submit</Text>
             </Button>
+            <LoginButton
+              publishPermissions={["publish_actions"]}
+              onLoginFinished={
+                (error, result) => {
+                  if (error) {
+                    alert("login has error: " + result.error);
+                  } else if (result.isCancelled) {
+                    alert("login is cancelled.");
+                  } else {
+                    AccessToken.getCurrentAccessToken().then(
+                      (data) => {
+                        alert(data.accessToken.toString())
+                      }
+                    )
+                  }
+                }
+              }
+              onLogoutFinished={() => alert("logout.")}/>
           </View>
         </TouchableWithoutFeedback>
       )

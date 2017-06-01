@@ -91,5 +91,27 @@
 		<string>Times New Roman.ttf</string>
 		<string>Zocial.ttf</string>
 	</array>
+  <key>CFBundleURLTypes</key>
+  <array>
+    <dict>
+      <key>CFBundleURLSchemes</key>
+      <array>
+        <string>fb275694992834146</string>
+      </array>
+    </dict>
+  </array>
+  <key>FacebookAppID</key>
+  <string>275694992834146</string>
+  <key>FacebookDisplayName</key>
+  <string>Veep</string>
+  <key>LSApplicationQueriesSchemes</key>
+  <array>
+    <string>fbapi</string>
+    <string>fb-messenger-api</string>
+    <string>fbauth2</string>
+    <string>fbshareextension</string>
+  </array>
+  <key>NSPhotoLibraryUsageDescription</key>
+  <string>to choose photo</string>
 </dict>
 </plist>
